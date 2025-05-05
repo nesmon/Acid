@@ -1,0 +1,9 @@
+services:
+  acid-node:
+    image: node:23-alpine
+    volumes:
+      - ./:/home/docker
+    working_dir: /home/docker
+    command: node app.js
+    ports:
+      - "3000:3000"
