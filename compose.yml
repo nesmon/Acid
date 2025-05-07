@@ -1,9 +1,26 @@
 services:
-  acid-node:
-    image: node:23-alpine
-    volumes:
-      - ./:/home/docker
-    working_dir: /home/docker
-    command: node app.js
-    ports:
-      - "3000:3000"
+    build:
+        build: 
+            context: .
+            target: acid_node
+        volumes:
+            - .:/home/docker
+        depends_on:
+            - db
+
+    db:
+        build:
+            context: .
+            target: acid_postgres
+        ports:
+            - "8084:5432"
+        environment:
+            POSTGRES_PASSWORD: acid
+            POSTGRES_USER: acid
+            POSTGRES_DB: acid
+        volumes:
+            - acidDB:/var/lib/postgresql/data
+    
+volumes:
+    acidDB: {}
+    acid: {}
