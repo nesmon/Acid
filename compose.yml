@@ -1,5 +1,5 @@
 services:
-    build:
+    node:
         build: 
             context: .
             target: acid_node
