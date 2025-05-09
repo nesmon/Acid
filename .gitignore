@@ -136,5 +136,5 @@ dist
 .pnp.*
 
 # Acid ignore
-config.json
+config.js
 .env
