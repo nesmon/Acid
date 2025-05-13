@@ -5,6 +5,7 @@ services:
             target: acid_node
         volumes:
             - .:/home/docker
+        command: node app.js
         depends_on:
             - db
 

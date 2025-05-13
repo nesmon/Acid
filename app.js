@@ -16,12 +16,9 @@ class AcidCore extends Client {
         this._addEventListeners();
         this.loadCommands();
 
-        this.on(Events.InteractionCreate, interaction => this.handleInteraction(interaction));
-
         this.login(AcidConfig.discord.token);
     }
 
-    // Add event listeners to the client
     async _addEventListeners() {
         const eventFiles = await readdir("./src/Events/");
         console.log(`Loading ${eventFiles.length} events.`);
@@ -36,7 +33,6 @@ class AcidCore extends Client {
         });
     }
 
-    // Load commands from the specified directory
     async loadCommands(dir = './src/Commands') {
         const entries = await readdir(dir, { withFileTypes: true });
 
@@ -57,7 +53,6 @@ class AcidCore extends Client {
         }
     }
 
-    // Load a single command from the provided path
     async _loadCommand(commandPath) {
         try {
             const command = require(commandPath);
@@ -72,7 +67,6 @@ class AcidCore extends Client {
         }
     }
 
-    // Unload a command by name
     async _unloadCommand(commandName) {
         if (!this.commands.has(commandName)) {
             console.warn(`⚠️ The command ${commandName} is not loaded.`);
@@ -85,7 +79,6 @@ class AcidCore extends Client {
         console.log(`✅ Command unloaded: ${commandName}`);
     }
 
-    // Reload a command by first unloading and then reloading it
     async _reloadCommand(commandName) {
         const commandPath = path.join(__dirname, 'src/Commands', commandName);
         try {
@@ -94,24 +87,6 @@ class AcidCore extends Client {
             console.log(`✅ Command ${commandName} reloaded.`);
         } catch (error) {
             console.error(`❌ Error reloading command ${commandName}:`, error);
-        }
-    }
-
-    // Handle interactions (commands) from users
-    async handleInteraction(interaction) {
-        if (!interaction.isChatInputCommand()) return;
-
-        const command = this.commands.get(interaction.commandName);
-        if (!command) return;
-
-        try {
-            await command.execute(interaction);
-        } catch (error) {
-            console.error(`❌ Error executing command ${interaction.commandName}:`, error);
-            await interaction.reply({
-                content: "An error occurred while executing this command.",
-                ephemeral: true
-            });
         }
     }
 }

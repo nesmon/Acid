@@ -8,7 +8,6 @@ module.exports = {
   async execute(interaction) {
     await interaction.reply({
       content: "Hello there! 👋",
-      flags: MessageFlags.Ephemeral,
     });  
   }
 };

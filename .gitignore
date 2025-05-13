@@ -138,3 +138,4 @@ dist
 # Acid ignore
 config.js
 .env
+generated/
