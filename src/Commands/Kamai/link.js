@@ -20,8 +20,9 @@ module.exports = {
   async execute(interaction) {
     console.log(interaction.options.getString("kamai"));
     console.log(interaction.options.getString("maitea"));
-    await interaction.reply({
-      content: "Hello there! 👋",
-    });  
+
+    const userId = interaction.user.id;
+    const kamaiKey = interaction.options.getString("kamai");
+    const maiteaKey = interaction.options.getString("maitea");
   }
 };
